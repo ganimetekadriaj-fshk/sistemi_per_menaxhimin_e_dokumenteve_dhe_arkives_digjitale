@@ -9,9 +9,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "documents")
+@Table(name = "Documents")
 public class Document {
 
     @Id
@@ -19,21 +23,30 @@ public class Document {
     @Column(name = "document_id")
     private Long documentId;
 
+    @NotBlank(message = "Titulli eshte i detyrueshem")
+    @Size(max = 255, message = "Titulli nuk duhet te kaloje 255 karaktere")
     @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description")
     private String description;
 
+    @NotBlank(message = "Emri i skedarit eshte i detyrueshem")
+    @Size(max = 255)
     @Column(name = "file_name", nullable = false)
     private String fileName;
 
+    @NotBlank(message = "Rruga e ruajtjes eshte e detyrueshme")
+    @Size(max = 500)
     @Column(name = "storage_path", nullable = false, length = 500)
     private String storagePath;
 
+    @Size(max = 100)
     @Column(name = "content_type", length = 100)
     private String contentType;
 
+    @NotNull(message = "Madhesia e skedarit eshte e detyrueshme")
+    @PositiveOrZero(message = "Madhesia nuk mund te jete negative")
     @Column(name = "file_size", nullable = false)
     private Long fileSize;
 
@@ -43,9 +56,11 @@ public class Document {
     @Column(name = "is_archived", nullable = false)
     private boolean archived;
 
+    @NotNull(message = "ID-ja e perdoruesit eshte e detyrueshme")
     @Column(name = "uploaded_by", nullable = false)
     private Long uploadedBy;
 
+    @NotNull(message = "ID-ja e kategorise eshte e detyrueshme")
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
 

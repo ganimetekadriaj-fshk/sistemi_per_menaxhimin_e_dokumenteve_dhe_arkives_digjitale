@@ -2,6 +2,7 @@ package com.documentarchive.document_archive;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,27 +29,30 @@ public class DocumentController {
         return documentRepository.findAll();
     }
 
-    // Gjej një dokument sipas ID-së
+    // Gjej një dokument sipas ID-se
     @GetMapping("/{id}")
     public ResponseEntity<Document> getDocumentById(
             @PathVariable Long id) {
 
         return documentRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Shto një dokument
+    // Shto nje dokument me validim
     @PostMapping
-    public Document createDocument(@RequestBody Document document) {
-        return documentRepository.save(document);
+    public ResponseEntity<Document> createDocument(
+            @Valid @RequestBody Document document) {
+
+        Document savedDocument = documentRepository.save(document);
+        return ResponseEntity.status(201).body(savedDocument);
     }
 
-    // Përditëso një dokument
+    // Perditeso nje dokument me validim
     @PutMapping("/{id}")
     public ResponseEntity<Document> updateDocument(
             @PathVariable Long id,
-            @RequestBody Document updatedDocument) {
+            @Valid @RequestBody Document updatedDocument) {
 
         return documentRepository.findById(id)
                 .map(document -> {
@@ -62,15 +66,19 @@ public class DocumentController {
                     document.setUploadedBy(updatedDocument.getUploadedBy());
                     document.setCategoryId(updatedDocument.getCategoryId());
 
-                    return ResponseEntity.ok(
-                            documentRepository.save(document));
+                    Document savedDocument =
+                            documentRepository.save(document);
+
+                    return ResponseEntity.ok(savedDocument);
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Fshij një dokument
+    // Fshij nje dokument
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteDocument(
+            @PathVariable Long id) {
+
         if (!documentRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
