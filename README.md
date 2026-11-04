@@ -73,3 +73,4 @@ por mund të shtohen më vonë.
 Projekti propozon një zgjidhje digjitale për menaxhimin më të lehtë dhe më të sigurt të dokumenteve.
 Janë përcaktuar problemi, përdoruesit, funksionalitetet, kërkesat, teknologjitë, arkitektura dhe modeli fillestar i databazës.
  Këto përbëjnë bazën për implementimin dhe testimin e sistemit
+
