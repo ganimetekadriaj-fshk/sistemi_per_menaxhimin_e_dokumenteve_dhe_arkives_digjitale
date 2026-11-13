@@ -73,4 +73,24 @@ por mund të shtohen më vonë.
 Projekti propozon një zgjidhje digjitale për menaxhimin më të lehtë dhe më të sigurt të dokumenteve.
 Janë përcaktuar problemi, përdoruesit, funksionalitetet, kërkesat, teknologjitë, arkitektura dhe modeli fillestar i databazës.
  Këto përbëjnë bazën për implementimin dhe testimin e sistemit
-
+RAPORTI II – Implementimi i Databazës dhe Backend-it
+Në fazën e dytë të projektit “Sistemi për Menaxhimin e Dokumenteve dhe Arkivës Digjitale” është realizuar implementimi i databazës dhe zhvillimi i pjesës bazë të backend-it.
+1. Databaza
+Është krijuar databaza document_archive_db në MariaDB, e cila përmban katër tabela kryesore:
+Users – ruajtja e të dhënave të përdoruesve.
+Categories – organizimi i dokumenteve sipas kategorive.
+Documents – ruajtja e informacioneve për dokumentet.
+Document_Access – menaxhimi i lejeve të qasjes në dokumente.
+Gjithashtu, janë përcaktuar relacionet ndërmjet tabelave përmes Primary Keys dhe Foreign Keys, si dhe janë përdorur kufizime të integritetit të të dhënave, si NOT NULL, UNIQUE, DEFAULT dhe ENUM.
+2. Backend-i dhe REST API
+Backend-i është zhvilluar duke përdorur Java dhe Spring Boot, ndërsa komunikimi me databazën realizohet përmes Spring Data JPA.
+Është krijuar REST API për menaxhimin e dokumenteve, e cila mbështet operacionet kryesore CRUD:
+GET – shfaqja e dokumenteve.
+POST – regjistrimi i dokumenteve të reja.
+PUT – përditësimi i dokumenteve ekzistuese.
+DELETE – fshirja e dokumenteve.
+3. Validimi dhe testimi
+Janë implementuar rregullat e validimit të të dhënave përmes Jakarta Validation, duke përdorur anotime si @NotBlank, @Size, @NotNull dhe @PositiveOrZero.
+Funksionalitetet e API-së janë testuar përmes Postman, ku janë verifikuar kërkesat GET, POST, PUT dhe DELETE, si dhe trajtimi i gabimeve përmes kodeve përkatëse HTTP.
+4. Përfundimi
+Në këtë fazë është realizuar baza funksionale e databazës dhe backend-it, duke mundësuar menaxhimin e të dhënave të dokumenteve përmes REST API-së. Në fazat e ardhshme planifikohet implementimi i ngarkimit real të skedarëve, autentikimit dhe autorizimit të përdoruesve, si dhe plotësimi i funksionaliteteve të arkivimit.
