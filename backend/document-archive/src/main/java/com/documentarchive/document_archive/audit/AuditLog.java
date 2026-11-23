@@ -12,6 +12,9 @@ public class AuditLog {
     @Column(name = "audit_id")
     private Long auditId;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(name = "action", nullable = false)
     private String action; // P.sh. CREATE_DOCUMENT, DOWNLOAD_DOCUMENT, DELETE_DOCUMENT
 
@@ -36,6 +39,14 @@ public class AuditLog {
 
     public void setAuditId(Long auditId) {
         this.auditId = auditId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getAction() {

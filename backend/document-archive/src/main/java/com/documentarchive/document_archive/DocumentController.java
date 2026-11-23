@@ -2,10 +2,10 @@ package com.documentarchive.document_archive;
 
 import com.documentarchive.document_archive.audit.AuditLog;
 import com.documentarchive.document_archive.audit.AuditRepository;
-import jakarta.validation.Valid;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,28 +42,44 @@ public class DocumentController {
         }
     }
 
-    // 1. Merr të gjitha dokumentet
+    private boolean isAdminRole(String roleHeader) {
+        if (roleHeader == null || roleHeader.isBlank()) {
+            return true; // Lejon thirrjet direkte/testuese pa header; për UI dërgohet X-User-Role
+        }
+        return "ADMIN".equalsIgnoreCase(roleHeader.trim());
+    }
+
+    // 1. Merr dokumentet (filtron automatikisht të arkivuarat nëse roli është USER)
     @GetMapping
-    public List<Document> getAllDocuments() {
-        return documentRepository.findAll();
+    public List<Document> getAllDocuments(
+            @RequestHeader(value = "X-User-Role", required = false) String roleHeader) {
+        List<Document> docs = documentRepository.findAll();
+        if (roleHeader != null && "USER".equalsIgnoreCase(roleHeader.trim())) {
+            return docs.stream()
+                    .filter(doc -> !Boolean.TRUE.equals(doc.isArchived()))
+                    .toList();
+        }
+        return docs;
     }
 
     // 2. Ngarko dokument të ri me skedar fizik dhe Audit Trail
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadDocument(
+            @RequestHeader(value = "X-User-Role", required = false) String roleHeader,
             @RequestParam("title") String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam("categoryId") Long categoryId,
             @RequestParam(value = "uploadedBy", defaultValue = "1") Long uploadedBy,
             @RequestParam("file") MultipartFile file) {
+        if (!isAdminRole(roleHeader)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Vetëm administratori mund të ngarkojë dokumente.");
+        }
         try {
             String originalFileName = file.getOriginalFilename();
             String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-            
-            // Përdorim rrugën absolute të sigurt
-            Path filePath = this.fileStorageLocation.resolve(uniqueFileName);
 
-            // Ruaj skedarin fizikisht në server
+            Path filePath = this.fileStorageLocation.resolve(uniqueFileName);
             file.transferTo(filePath.toFile());
 
             Document doc = new Document();
@@ -79,7 +95,6 @@ public class DocumentController {
 
             Document savedDoc = documentRepository.save(doc);
 
-            // Regjistro veprimin në Audit Trail
             AuditLog log = new AuditLog();
             log.setAction("CREATE_DOCUMENT");
             log.setDetails("U shtua dokumenti: " + title + " (ID: " + savedDoc.getDocumentId() + ")");
@@ -103,7 +118,6 @@ public class DocumentController {
             Resource resource = new UrlResource(path.toUri());
 
             if (resource.exists() || resource.isReadable()) {
-                // Regjistro shkarkimin në Audit Trail
                 AuditLog log = new AuditLog();
                 log.setAction("DOWNLOAD_DOCUMENT");
                 log.setDetails("U shkarkua skedari për dokumentin: " + doc.getTitle());
@@ -121,11 +135,16 @@ public class DocumentController {
         }
     }
 
-    // 4. Fshi dokumentin dhe skedarin fizik
+    // 4. Fshi dokumentin dhe skedarin fizik (vetëm ADMIN)
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDocument(@PathVariable Long id) {
+    public ResponseEntity<?> deleteDocument(
+            @RequestHeader(value = "X-User-Role", required = false) String roleHeader,
+            @PathVariable Long id) {
+        if (!isAdminRole(roleHeader)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Vetëm administratori mund të fshijë dokumente.");
+        }
         return documentRepository.findById(id).map(doc -> {
-            // Fshi skedarin fizik nëse ekziston
             try {
                 File file = new File(doc.getStoragePath());
                 if (file.exists()) {
@@ -135,7 +154,6 @@ public class DocumentController {
 
             documentRepository.delete(doc);
 
-            // Regjistro fshirjen në Audit Trail
             AuditLog log = new AuditLog();
             log.setAction("DELETE_DOCUMENT");
             log.setDetails("U fshi dokumenti me ID: " + id);
@@ -151,14 +169,19 @@ public class DocumentController {
         return auditRepository.findAll();
     }
 
-    // 6. Arkivo dokumentin (Tani ndodhet brenda klasës, siç duhet)
+    // 6. Arkivo dokumentin (vetëm ADMIN)
     @PutMapping("/archive/{id}")
-    public ResponseEntity<?> archiveDocument(@PathVariable Long id) {
+    public ResponseEntity<?> archiveDocument(
+            @RequestHeader(value = "X-User-Role", required = false) String roleHeader,
+            @PathVariable Long id) {
+        if (!isAdminRole(roleHeader)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Vetëm administratori mund të arkivojë dokumente.");
+        }
         return documentRepository.findById(id).map(doc -> {
             doc.setArchived(true);
             documentRepository.save(doc);
 
-            // Regjistro veprimin në Audit Trail
             AuditLog log = new AuditLog();
             log.setAction("ARCHIVE_DOCUMENT");
             log.setDetails("U arkivua dokumenti: " + doc.getTitle() + " (ID: " + id + ")");

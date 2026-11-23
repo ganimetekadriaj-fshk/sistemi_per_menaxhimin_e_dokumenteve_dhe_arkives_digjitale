@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION['role'])) {
+    header("Location: login.php");
+    exit();
+}
+if (strtoupper(trim($_SESSION['role'])) !== 'ADMIN') {
+    header("Location: index.php");
+    exit();
+}
+$currentUserId = $_SESSION['user_id'] ?? 1;
+?>
 <!DOCTYPE html>
 <html lang="sq">
 <head>
@@ -5,6 +17,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shto Dokument - Arkiva Digjitale</title>
     <style>
+        body {
+            background: #0f172a;
+            margin: 0;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .main-content {
+            padding: 32px;
+        }
         .form-container {
             max-width: 650px;
             margin: 0 auto;
@@ -14,11 +35,30 @@
             border-radius: 16px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
         .form-title {
-            margin-top: 0;
+            margin: 0;
             font-size: 22px;
             font-weight: 700;
             color: #ffffff;
+        }
+        .btn-back {
+            background: #334155;
+            color: #f8fafc;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .btn-back:hover {
+            background: #475569;
         }
         .form-group {
             margin-bottom: 20px;
@@ -79,7 +119,10 @@
 
 <main class="main-content">
     <div class="form-container">
-        <h2 class="form-title">📄 Ngarko Dokument të Ri</h2>
+        <div class="top-row">
+            <h2 class="form-title">📄 Ngarko Dokument të Ri</h2>
+            <a href="index.php" class="btn-back">← Dashboard</a>
+        </div>
         <p style="color: #94a3b8; font-size: 14px; margin-bottom: 24px;">Regjistroni dokumentin e ri në bazën e të dhënave.</p>
 
         <div id="alertBox" class="alert-box"></div>
@@ -112,6 +155,7 @@
 
 <script>
     const API_URL = "http://localhost:8083/api/documents";
+    const CURRENT_USER_ID = <?php echo json_encode($currentUserId); ?>;
 
     async function submitDocument(event) {
         event.preventDefault();
@@ -120,8 +164,8 @@
         formData.append("title", document.getElementById('title').value);
         formData.append("description", document.getElementById('description').value);
         formData.append("categoryId", document.getElementById('categoryId').value);
-        formData.append("uploadedBy", "1");
-        
+        formData.append("uploadedBy", String(CURRENT_USER_ID));
+
         const fileInput = document.getElementById('fileInput');
         if (fileInput.files.length > 0) {
             formData.append("file", fileInput.files[0]);
@@ -132,7 +176,7 @@
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                body: formData // Vëre se nuk vendosim headers për Content-Type, brauzeri e vendos automatikisht për multipart/form-data
+                body: formData
             });
 
             if (response.ok) {
