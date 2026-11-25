@@ -1,0 +1,69 @@
+<!-- aboutUs.html -->
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rreth Sistemit - Arkiva Digjitale</title>
+    <link rel="shortcut icon" href="logo min.jpg" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="brand-box">
+                <svg class="brand-logo-svg" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="dmsPrismGrad" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#7c3aed"/>
+                            <stop offset="55%" stop-color="#ec4899"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="50" height="50" rx="14" fill="url(#dmsPrismGrad)"/>
+                    <path d="M13 17.5C13 15.8431 14.3431 14.5 16 14.5H22.6L25.2 17.5H34C35.6569 17.5 37 18.8431 37 20.5V32.5C37 34.1569 35.6569 35.5 34 35.5H16C14.3431 35.5 13 34.1569 13 32.5V17.5Z" fill="#ffffff"/>
+                    <path d="M18.5 24H31.5M18.5 29H26.5" stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+                <div>
+                    <div class="brand-title">Rreth Sistemit</div>
+                    <div class="brand-subtitle">Dokumentim i projektit — Praktikë Profesionale (Semestri V)</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html">Ballina</a></li>
+                <li><a href="katalogu.php">Arkivi Publik</a></li>
+                <li><a href="menu.html">Kategoritë</a></li>
+                <li><a href="galery.html">Standardet &amp; Formatet</a></li>
+                <li><a href="Contact.html">Mbështetje</a></li>
+                <li><a href="aboutUs.html" class="active">Rreth Sistemit</a></li>
+                <li><a href="login.php">Kyçu</a></li>
+                <li><a href="register.php">Regjistrohu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="panel-card">
+            <h2>Përmbledhje e Projektit</h2>
+            <p style="margin-bottom: 16px;">Ky sistem është zhvilluar si aplikacion web me PHP (PDO) dhe MySQL për menaxhimin e dokumenteve dhe arkivës digjitale, duke ndjekur fazat e raportimit teknik të lëndës <strong>Projekt (Praktikë Profesionale)</strong>.</p>
+
+            <h3>Arkitektura &amp; Funksionalitetet Kryesore</h3>
+            <ul style="margin-left: 20px; display: grid; gap: 8px; margin-bottom: 20px;">
+                <li>Autentikim i sigurt me <code>password_hash()</code> / <code>password_verify()</code> dhe mbrojtje CSRF.</li>
+                <li>Kontroll i qasjes sipas roleve (<code>user</code> dhe <code>admin</code>) përmes <code>auth_guard.php</code>.</li>
+                <li>Operacione të plota CRUD për dokumente, kategori, kërkesa kontakti dhe përdorues.</li>
+                <li>Eksport i regjistrit të dokumenteve në format XML përmes <code>export_xml.php</code>.</li>
+            </ul>
+
+            <h3>Autorët</h3>
+            <p><strong>Ganimete Kadriaj (ID: 240329096)</strong></p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Sistemi i Menaxhimit të Dokumenteve dhe Arkivës Digjitale</p>
+    </footer>
+</body>
+</html>

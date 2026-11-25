@@ -1,0 +1,82 @@
+<!-- Contact.html -->
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mbështetje &amp; Kontakt - Arkiva Digjitale</title>
+    <link rel="shortcut icon" href="logo min.jpg" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="brand-box">
+                <svg class="brand-logo-svg" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="dmsPrismGrad" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#7c3aed"/>
+                            <stop offset="55%" stop-color="#ec4899"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="50" height="50" rx="14" fill="url(#dmsPrismGrad)"/>
+                    <path d="M13 17.5C13 15.8431 14.3431 14.5 16 14.5H22.6L25.2 17.5H34C35.6569 17.5 37 18.8431 37 20.5V32.5C37 34.1569 35.6569 35.5 34 35.5H16C14.3431 35.5 13 34.1569 13 32.5V17.5Z" fill="#ffffff"/>
+                    <path d="M18.5 24H31.5M18.5 29H26.5" stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+                <div>
+                    <div class="brand-title">Mbështetje &amp; Kërkesa Arkivore</div>
+                    <div class="brand-subtitle">Dërgo kërkesë për qasje, korrigjim ose asistencë teknike</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html">Ballina</a></li>
+                <li><a href="katalogu.php">Arkivi Publik</a></li>
+                <li><a href="menu.html">Kategoritë</a></li>
+                <li><a href="galery.html">Standardet &amp; Formatet</a></li>
+                <li><a href="Contact.html" class="active">Mbështetje</a></li>
+                <li><a href="aboutUs.html">Rreth Sistemit</a></li>
+                <li><a href="login.php">Kyçu</a></li>
+                <li><a href="register.php">Regjistrohu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="panel-card" style="max-width: 720px; margin: 0 auto;">
+            <h2>Kontakto Administratën e Arkivit</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Plotësoni formularin më poshtë për kërkesa mbi dokumente, kategori të reja ose mbështetje teknike.</p>
+
+            <form action="contact.php" method="post" class="form-grid" style="grid-template-columns: 1fr;">
+                <div class="form-group">
+                    <label for="name">Emri dhe Mbiemri:*</label>
+                    <input type="text" id="name" name="name" placeholder="Emri juaj i plotë" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:*</label>
+                    <input type="email" id="email" name="email" placeholder="emri@institucioni.org" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Informations">Departamenti / Njësia:</label>
+                    <input type="text" id="Informations" name="Informations" placeholder="p.sh. Arkiv, Financa, Juridik">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Përshkrimi i kërkesës:*</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Shkruani detajet e kërkesës ose numrin e protokollit..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Dërgo Kërkesën</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Sistemi i Menaxhimit të Dokumenteve dhe Arkivës Digjitale</p>
+    </footer>
+</body>
+</html>

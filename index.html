@@ -1,0 +1,105 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemi i Menaxhimit të Dokumenteve &amp; Arkivës Digjitale</title>
+    <link rel="shortcut icon" href="logo min.jpg" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="brand-box">
+                <svg class="brand-logo-svg" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="dmsPrismGrad" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#7c3aed"/>
+                            <stop offset="55%" stop-color="#ec4899"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="50" height="50" rx="14" fill="url(#dmsPrismGrad)"/>
+                    <path d="M13 17.5C13 15.8431 14.3431 14.5 16 14.5H22.6L25.2 17.5H34C35.6569 17.5 37 18.8431 37 20.5V32.5C37 34.1569 35.6569 35.5 34 35.5H16C14.3431 35.5 13 34.1569 13 32.5V17.5Z" fill="#ffffff"/>
+                    <path d="M18.5 24H31.5M18.5 29H26.5" stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+                <div>
+                    <div class="brand-title">Arkiva Digjitale &amp; DMS</div>
+                    <div class="brand-subtitle">Menaxhim i strukturuar i dokumenteve, protokollit dhe arkivit elektronik</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html" class="active">Ballina</a></li>
+                <li><a href="katalogu.php">Arkivi Publik</a></li>
+                <li><a href="menu.html">Kategoritë</a></li>
+                <li><a href="galery.html">Standardet &amp; Formatet</a></li>
+                <li><a href="Contact.html">Mbështetje</a></li>
+                <li><a href="aboutUs.html">Rreth Sistemit</a></li>
+                <li><a href="login.php">Kyçu</a></li>
+                <li><a href="register.php">Regjistrohu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-card">
+            <div>
+                <h2>Arkivim i sigurt, gjurmueshmëri e plotë dhe qasje e shpejtë në dokumente</h2>
+                <p>Platformë web për regjistrimin, kategorizimin, versionimin dhe arkivimin digjital të dokumenteve institucionale ose të brendshme me kontroll të qasjes sipas roleve.</p>
+                <div class="hero-actions">
+                    <a href="katalogu.php" class="btn-primary"><i class="fas fa-folder-open"></i> Shfleto Arkivin</a>
+                    <a href="login.php" class="btn-secondary"><i class="fas fa-lock"></i> Hyr në Panel</a>
+                </div>
+            </div>
+            <div class="stats-grid" style="margin-bottom: 0;">
+                <div class="stat-tile">
+                    <div class="stat-label">Protokollim</div>
+                    <div class="stat-value">100%</div>
+                </div>
+                <div class="stat-tile">
+                    <div class="stat-label">Kontroll Qasjeje</div>
+                    <div class="stat-value">RBAC</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel-card">
+            <h2>Modulet Kryesore të Sistemit</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <div>
+                        <div class="doc-meta">MODULI 01 • REGJISTRIM</div>
+                        <h3>Protokollim &amp; Metadate</h3>
+                        <p>Regjistrim i dokumenteve me numër unik protokolli, kategori, version dhe përshkrim të strukturuar.</p>
+                    </div>
+                    <a href="user_dashboard.php">Menaxho dokumentet →</a>
+                </div>
+                <div class="doc-card">
+                    <div>
+                        <div class="doc-meta">MODULI 02 • ARKIVIM</div>
+                        <h3>Cikël Jetësor &amp; Status</h3>
+                        <p>Ndjekje e statusit të dokumentit: Aktiv, Në shqyrtim ose I arkivuar, me ruajtje të historikut.</p>
+                    </div>
+                    <a href="katalogu.php">Shiko regjistrin →</a>
+                </div>
+                <div class="doc-card">
+                    <div>
+                        <div class="doc-meta">MODULI 03 • ADMINISTRIM</div>
+                        <h3>Kontroll Roli &amp; Eksport</h3>
+                        <p>Administrim i kategorive, përdoruesve, kërkesave të kontaktit dhe eksport i të dhënave në XML.</p>
+                    </div>
+                    <a href="admin_dashboard.php">Paneli Admin →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Sistemi i Menaxhimit të Dokumenteve dhe Arkivës Digjitale — Projekt Akademik</p>
+    </footer>
+</body>
+</html>
