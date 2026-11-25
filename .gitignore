@@ -1,0 +1,6 @@
+**/target/
+**/application.properties
+~$.docx
+~WRL*.tmp
+.vscode/
+.idea/

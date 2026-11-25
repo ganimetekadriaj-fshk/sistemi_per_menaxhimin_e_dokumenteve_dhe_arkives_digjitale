@@ -1,0 +1,28 @@
+$kind: http-request
+description: ""
+url: http://localhost:8082/api/documents
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"title\": \"Test i madhësisë negative\",\r
+
+    \  \"description\": \"Kontrolli i validimit të madhësisë\",\r
+
+    \  \"fileName\": \"test.pdf\",\r
+
+    \  \"storagePath\": \"uploads/test.pdf\",\r
+
+    \  \"contentType\": \"application/pdf\",\r
+
+    \  \"fileSize\": -100,\r
+
+    \  \"archived\": false,\r
+
+    \  \"uploadedBy\": 1,\r
+
+    \  \"categoryId\": 1\r
+
+    }"
+order: 1000
